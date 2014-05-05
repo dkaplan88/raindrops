@@ -1,18 +1,17 @@
 class Raindrops
+  PRIMES = { 3 => 'Pling', 5 => 'Plang', 7 => 'Plong'}
+
   def self.convert(number)
-    str = divisible_by_3(number) + divisible_by_5(number) + divisible_by_7(number)
-    str.empty? ? number.to_s : str
+    if prime_factors_for(number).join.empty? 
+      number.to_s 
+    else
+      prime_factors_for(number).join
+    end
   end
 
-  def self.divisible_by_3(number)
-    (number.modulo(3)).zero? ? 'Pling' : ''
-  end
-
-  def self.divisible_by_5(number)
-    (number.modulo(5)).zero? ? 'Plang' : ''
-  end
-
-  def self.divisible_by_7(number)
-    (number.modulo(7)).zero? ? 'Plong' : ''
+  def self.prime_factors_for(number)
+    PRIMES.map do |prime, output|
+      output if number.modulo(prime).zero?
+    end
   end
 end
